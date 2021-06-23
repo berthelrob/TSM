@@ -1,0 +1,14 @@
+/* Script para reexecução de backups no TSM via TSM */
+/* Para executar o comando de reexecução de backup, digite: run rerun dominio nome_da_schedule nome_do_nó */
+
+define script rerun desc="Reexecuta backups"
+
+update script rerun "/* Desenvolvido por Robson Berthelsen*/"
+update script rerun "run voltarconfsched $1 $2 $3"
+update script rerun "copy sched $1 $2 $1 $2_ORIG"
+update script rerun "update sched $1 $2 startt=now startd=today peru=one day=any scheds=classic dura=1 duru=hours"
+update script rerun "def sched wait_$2 t=a cmd='run voltarconfsched $1 $2 $3' active=yes starttime=now+01:00 perunit=onetime"
+update script rerun "issue message i ''"
+update script rerun "issue message i 'Reexecutando backup .... '"
+update script rerun "issue message i 'Verifique seu status através do comando q event * nomedaschedule'"
+update script rerun "issue message i ''"
