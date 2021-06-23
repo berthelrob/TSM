@@ -1,0 +1,7 @@
+define script VOLTARCONFSCHED desc="Volta configuracoes da schedule após reexecucao por script"
+
+update script VOLTARCONFSCHED "copy sched $1 $2_ORIG $1 $2 replace=yes"
+update script VOLTARCONFSCHED "delete assoc $1 $2 $3"
+update script VOLTARCONFSCHED "define assoc $1 $2 $3"
+update script VOLTARCONFSCHED "delete schedule $1 $2_ORIG"
+update script VOLTARCONFSCHED "delete sched wait_$2 t=a"
